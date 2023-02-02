@@ -1,0 +1,35 @@
+{
+    "name": "maantje/react-email",
+    "description": "React email for Laravel",
+    "keywords": ["laravel", "react", "react email"],
+    "homepage": "https://github.com/maantje/laravel-react-email",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Maantje\\ReactEmail\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jamie Schouten",
+            "email": "j4mie@hey.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Maantje\\ReactEmail\\ReactEmailServiceProvider"
+            ]
+        }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^7.20",
+        "pestphp/pest": "^1.22"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
