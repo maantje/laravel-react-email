@@ -6,7 +6,7 @@ This package allows you to easily send [React email](https://react.email/) email
 
 ``` bash
 composer require maantje/react-email
-yarn add @maantje/react-email
+yarn add @j4mie/react-email
 ```
 
 ## Usage
