@@ -2,6 +2,8 @@
 
 namespace Maantje\ReactEmail;
 
+use Exception;
+use Maantje\ReactEmail\Exceptions\NodeNotFoundException;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
@@ -11,11 +13,12 @@ class Renderer extends Process
     /**
      * @param string $view
      * @param array $data
+     * @throws Exception
      */
     private function __construct(string $view, array $data = [])
     {
         parent::__construct([
-            (new ExecutableFinder())->find('node'),
+            $this->resolveNodeExecutable(),
             base_path('/node_modules/.bin/tsx'),
             __DIR__ .'/../render.tsx',
             config('react-email.template_directory') . $view,
@@ -41,5 +44,23 @@ class Renderer extends Process
         }
 
         return json_decode($process->getOutput(), true);
+    }
+
+    /**
+     * Resolve the node path from the configuration or executable finder.
+     *
+     * @return string
+     * @throws Exception
+     */
+    public static function resolveNodeExecutable(): string
+    {
+        if ($executable = config('react-emails.node_path', app(ExecutableFinder::class)->find('node')))
+        {
+            return $executable;
+        }
+
+        throw new NodeNotFoundException(
+            'Unable to resolve node path automatically, please provide a configuration value in react-emails'
+        );
     }
 }

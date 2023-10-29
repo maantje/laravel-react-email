@@ -4,12 +4,29 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Maantje\ReactEmail\Exceptions\NodeNotFoundException;
 use Maantje\ReactEmail\ReactMailable;
+use Maantje\ReactEmail\Renderer;
+use Mockery\MockInterface;
+use Symfony\Component\Process\ExecutableFinder;
 
 it('renders the html and text from react-email', function () {
     (new TestMailable)
         ->assertSeeInHtml(EXPECTED_HTML, false)
         ->assertSeeInText('Hello from react email, test');
+});
+
+it('throws an exception if node executable is not resolved', function () {
+    $this->expectException(NodeNotFoundException::class);
+
+    $this->instance(
+        ExecutableFinder::class,
+        Mockery::mock(ExecutableFinder::class, function (MockInterface $mock) {
+            $mock->shouldReceive('find')->andReturn(null);
+        })
+    );
+
+    (new TestMailable)->render();
 });
 
 const EXPECTED_HTML = <<<HTML
