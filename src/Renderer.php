@@ -2,7 +2,6 @@
 
 namespace Maantje\ReactEmail;
 
-use Exception;
 use Maantje\ReactEmail\Exceptions\NodeNotFoundException;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\ExecutableFinder;
@@ -13,7 +12,7 @@ class Renderer extends Process
     /**
      * @param string $view
      * @param array $data
-     * @throws Exception
+     * @throws NodeNotFoundException
      */
     private function __construct(string $view, array $data = [])
     {
@@ -50,7 +49,7 @@ class Renderer extends Process
      * Resolve the node path from the configuration or executable finder.
      *
      * @return string
-     * @throws Exception
+     * @throws NodeNotFoundException
      */
     public static function resolveNodeExecutable(): string
     {
