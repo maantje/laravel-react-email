@@ -53,7 +53,7 @@ class Renderer extends Process
      */
     public static function resolveNodeExecutable(): string
     {
-        if ($executable = config('react-emails.node_path', app(ExecutableFinder::class)->find('node')))
+        if ($executable = config('react-email.node_path', app(ExecutableFinder::class)->find('node')))
         {
             return $executable;
         }

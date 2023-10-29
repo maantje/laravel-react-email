@@ -17,6 +17,8 @@ it('renders the html and text from react-email', function () {
 });
 
 it('throws an exception if node executable is not resolved', function () {
+    config()->set('react-email.node_path');
+
     $this->expectException(NodeNotFoundException::class);
 
     $this->instance(
@@ -27,6 +29,12 @@ it('throws an exception if node executable is not resolved', function () {
     );
 
     (new TestMailable)->render();
+});
+
+it('prioritises configuration value over executable finder', function () {
+    config()->set('react-email.node_path', '/path/to/node');
+
+    expect(Renderer::resolveNodeExecutable())->toEqual('/path/to/node');
 });
 
 const EXPECTED_HTML = <<<HTML
