@@ -8,15 +8,25 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [ 8.1, 8.2 ]
-        testbench: [7.*, 8.*]
+        php: [ 8.1, 8.2, 8.3, 8.4]
+        testbench: [7.*, 8.*, 9.*, 10.*]
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set Node.js 16.x
-        uses: actions/setup-node@v3
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
         with:
-          node-version: 16.x
+          version: 10
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -24,11 +34,6 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
           coverage: none
-
-      - name: Install yarn dependencies
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: install
 
       - name: Install composer dependencies
         run: |
