@@ -1,6 +1,5 @@
 {
-  "name": "@j4mie/react-email",
-  "version": "0.2.0",
+  "name": "@maantje/react-email",
   "homepage": "https://github.com/maantje/laravel-react-email#readme",
   "license": "MIT",
   "dependencies": {
