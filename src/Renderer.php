@@ -18,7 +18,7 @@ class Renderer extends Process
     {
         parent::__construct([
             $this->resolveNodeExecutable(),
-            base_path('/node_modules/.bin/tsx'),
+            base_path(config('react-email.tsx_path') ?? '/node_modules/.bin/tsx'),
             __DIR__ .'/../render.tsx',
             config('react-email.template_directory') . $view,
             json_encode($data)
