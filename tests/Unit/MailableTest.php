@@ -40,9 +40,6 @@ it('prioritises configuration value over executable finder', function () {
     expect(Renderer::resolveNodeExecutable())->toEqual('/path/to/node');
 });
 
-const EXPECTED_HTML = <<<HTML
-HTML;
-
 class TestMailable extends ReactMailable
 {
     public function __construct(public array $user = ['name' => 'test']) { }
