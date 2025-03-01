@@ -1,8 +1,8 @@
-~~# React Email for Laravel
+# React Email for Laravel
 
 Easily send [React Email](https://react.email/) emails with Laravel using this package.
 
-## 📦 Installation
+## Installation
 
 First, install the package via Composer:
 
