@@ -1,24 +1,31 @@
-# React email for Laravel
+# React Email for Laravel
 
-This package allows you to easily send [React email](https://react.email/) emails with Laravel.
+Easily send [React Email](https://react.email/) emails with Laravel using this package.
 
-## Install
+## Installation
 
-``` bash
+First, install the package via Composer:
+
+```bash
 composer require maantje/react-email
-yarn add @j4mie/react-email
 ```
 
-## Usage
+Then, install the required Node dependencies:
 
-Install React email ([automatic](https://react.email/docs/getting-started/automatic-setup), [manual](https://react.email/docs/getting-started/manual-setup)).
+```bash
+npm install vendor/maantje/react-email
+```
 
-Create an email in the emails directory e.g. new-user.tsx, make sure the component is the default export.
+## Getting Started
 
-``` tsx
-import { Html } from '@react-email/html';
-import { Text } from '@react-email/text';
+1. Install React Email using the [automatic](https://react.email/docs/getting-started/automatic-setup) or [manual](https://react.email/docs/getting-started/manual-setup) setup.
+2. Create an email component in the `emails` directory (e.g., `new-user.tsx`). Ensure the component is the default export.
+
+Example email component:
+
+```tsx
 import * as React from 'react';
+import { Text, Html } from '@react-email/components';
 
 export default function Email({ user }) {
     return (
@@ -29,29 +36,35 @@ export default function Email({ user }) {
 }
 ```
 
-Set up the email directory in your Laravel .env.
-``` env
-REACT_EMAIL_DIRECTORY="/my/absolute/path/to/react-email-starter/emails/"
+3. Define the email directory path in your Laravel `.env` file:
+
+```env
+REACT_EMAIL_DIRECTORY="emails/directory/relative/from/laravel/root"
 ```
 
-Create a Laravel mailable.
+4. Generate a new Laravel Mailable class:
 
-``` bash
+```bash
 php artisan make:mail NewUser
 ```
 
-Extend from ReactMailable instead of Mailable.
+5. Use `ReactMailView` in your `Mailable`, or extend your `Mailable` from `ReactMailable``
 
-``` php
+```php
 use App\Models\User;
 use Maantje\ReactEmail\ReactMailable;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Mail\Mailables\Content;
+use Maantje\ReactEmail\ReactMailView;
 
-class NewUser extends ReactMailable
+class NewUser extends ReactMailable // Extend, from \Maantje\ReactEmail\ReactMailable
 {
-    public function __construct(public User $user) 
+    use ReactMailView; // or use \Maantje\ReactEmail\ReactMailView
+    
+    public function __construct(public User $user)
     {
-        // public properties will be passed as props to the React email component
-        // Alternatively use the with property of content
+        // Public properties will be passed as props to the React email component.
+        // Alternatively, use the `with` property of `content`.
     }
     
     public function envelope()
@@ -64,22 +77,25 @@ class NewUser extends ReactMailable
     public function content()
     {
         return new Content(
-            view: 'new-user', // name of the component file without extension
+            view: 'new-user', // Component filename without the extension
         );
     }
 }
 ```
 
-## Testing
+## Running Tests
 
-``` bash
+Run tests using [Pest](https://pestphp.com/):
+
+```bash
 ./vendor/bin/pest
 ```
 
 ## Security
 
-If you discover any security related issues, please email author email instead of using the issue tracker.
+If you discover any security-related issues, please email the author instead of using the issue tracker.
 
 ## License
 
-The MIT License (MIT). Please see [License File](/LICENSE) for more information.
+This package is open-source and licensed under the MIT License. See the [LICENSE](/LICENSE) file for details.~~
+

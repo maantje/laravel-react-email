@@ -1,16 +1,16 @@
 {
-  "name": "@j4mie/react-email",
-  "version": "0.2.0",
+  "name": "@maantje/react-email",
   "homepage": "https://github.com/maantje/laravel-react-email#readme",
   "license": "MIT",
   "dependencies": {
-    "@react-email/render": "^0.0.7",
-    "react": "^18.2.0",
-    "tsx": "^3.12.2"
+    "@react-email/render": "^1.0.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tsx": "^4.19.3"
   },
   "devDependencies": {
-    "@react-email/html": "^0.0.4",
-    "@react-email/text": "^0.0.5",
-    "@types/node": "^20.5.3"
+    "@react-email/components": "^0.0.33",
+    "@types/node": "^22.13.8",
+    "prettier": "^3.5.2"
   }
 }
