@@ -1,6 +1,5 @@
-import { Html } from '@react-email/html';
-import { Text } from '@react-email/text';
 import * as React from 'react';
+import { Text, Html } from '@react-email/components';
 
 export default function Email({ user }) {
     return (

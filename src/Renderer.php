@@ -18,7 +18,7 @@ class Renderer extends Process
     {
         parent::__construct([
             $this->resolveNodeExecutable(),
-            base_path(config('react-email.tsx_path') ?? '/node_modules/.bin/tsx'),
+            config('react-email.tsx_path') ?? base_path('/node_modules/tsx/dist/cli.mjs'),
             __DIR__ .'/../render.tsx',
             config('react-email.template_directory') . $view,
             json_encode($data)
@@ -31,6 +31,7 @@ class Renderer extends Process
      * @param string $view name of the file the component is in
      * @param array $data data that will be passed as props to the component
      * @return array
+     * @throws NodeNotFoundException
      */
     public static function render(string $view, array $data): array
     {

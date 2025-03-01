@@ -2,3 +2,5 @@
 /vendor
 .phpunit.result.cache
 .phpunit.cache
+composer.lock
+pnpm-lock.yaml
